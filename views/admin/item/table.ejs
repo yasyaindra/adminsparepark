@@ -1,0 +1,43 @@
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>No.</th>
+      <th>Nama Barang</th>
+      <th>Tipe Barang</th>
+      <th>Jenis Barang</th>
+      <th>Quantity</th>
+      <th>Minim Stock</th>
+      <th>Dibuat Pada</th>
+      <th>Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < item.length; i++){ %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= item[i].kodeBarang%> - <%= item[i].name %></td>
+          <td><%= item[i].tipeBarang %></td>
+          <td><%= item[i].jenisBarang %></td>
+          <td style="color:<% if( item[i].quantity < item[i].minimStock) { %>red<% } else { %>green<% } %>;font-weight:bold"><%= item[i].quantity %></td>
+          <td><%= item[i].minimStock %></td>
+          <td><%= moment(item[i].createdAt).format("YYYY-MM-DD HH:mm"); %></td>
+          <td>
+            <a href="/item/detail/<%= item[i]._id %>" class="btn btn-primary btn-sm">
+              <i class="fa fa-id-badge"></i>
+              Detail
+            </a>
+            <a href="/item/edit/<%= item[i]._id %>" class="btn btn-info btn-sm">
+              <i class="fas fa-pencil-alt"></i>
+              Ubah
+            </a>
+            <form style="display: inline-block;" action="/item/delete/<%= item[i]._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+                Hapus
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>

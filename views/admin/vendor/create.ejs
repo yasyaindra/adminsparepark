@@ -1,0 +1,112 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Vendor</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/vendor">Vendor</a></li>
+            <li class="breadcrumb-item active">Tambah</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form tambah vendor</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="/vendor/create" method="POST">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Masukan nama vendor</label>
+                  <input type="text" name="nameVendor" class="form-control" id="name" placeholder="Masukan nama vendor" required>
+                </div>
+                <div class="form-group">
+                  <label>Tanggal PO</label>
+                  <!-- /.input group -->
+                  <input type="date" id="start" name="tanggalPO"
+                        value="2018-07-22"
+                        min="2010-01-01" max="2032-12-31" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="nomorPO">Nomor PO</label>
+                  <input type="text" name="nomorPO" class="form-control" id="nomorPO" placeholder="Masukan nomor PO" required>
+                </div>
+                <div class="form-group">
+                  <label for="penerima">Penerima</label>
+                  <input type="text" name="penerima" class="form-control" id="penerima" placeholder="Masukan nama penerima" required>
+                </div>
+                <div class="form-group">
+                  <label>Barang</label>
+                  <div class="select2-purple">
+                    <select 
+                      class="form-control select2" 
+                      multiple="multiple" 
+                      data-placeholder="Pilih item"
+                      style="width: 100%;"
+                      name="item" 
+                      required>
+                      <% item.forEach(item=>{ %>
+                        <option value="<%= item._id %>"><%= `${item.kodeBarang} - ${item.name}` %></option>
+                      <% }) %>
+                      
+                    </select>
+
+                  </div>
+                </div>
+                <!-- <div class="form-group">
+                  <label for="image">Gambar</label>
+                  <input type="file" name="image" class="form-control" id="image" placeholder="Masukan gambar" required>
+                  <br >
+                  <img src="" id="perview"> 
+                </div> -->
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
+<script>
+  function readURL (input){
+    if(input.files && input.files[0]){
+      const reader = new FileReader();
+      reader.onload = function(e){
+        $('#perview').attr('src', e.target.result);
+        $('#perview').attr('width', '20%');
+        $('#perview').attr('height', '20%');
+      }
+      reader.readAsDataURL(input.files[0])
+    }
+  }
+  $('#image').change(function(){
+    readURL(this)
+  })
+</script>

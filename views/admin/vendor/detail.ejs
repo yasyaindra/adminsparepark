@@ -1,0 +1,76 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1><%= title %></h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Detail Item</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <h3 class="d-inline-block d-sm-none">Detail Project</h3>
+              <div class="col-12">
+                <img src="http://localhost:3000/uploads/<%= vendor.thumbnail %>" class="product-image" alt="Product Image">
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <h3 class="my-3"><%= vendor.nameVendor %></h3>
+              <p><%= vendor.nomorPO %></p>
+
+              <hr>
+              <div class="bg-blue py-2 px-3 mt-4 rounded">
+                <h2 class="mb-0">
+                  <b>Tanggal PO:</b> <%= moment(vendor.tanggalPO).format("DD MMMM YYYY") %>
+                </h2>
+              </div>
+              <div class="bg-blue py-2 px-3 mt-4 rounded">
+                <h2 class="mb-0">
+                  <b>Penerima :</b> <%= vendor.penerima %>
+                </h2>
+              </div>
+              <hr>
+              <div class="py-2 px-3 mt-4 rounded">
+                <% vendor.item.forEach(item => { %>
+                    <span class="badge badge-warning">
+                      <%= item.name %> 
+                    </span>
+                  <% }) %>
+              </div>
+              <div class="bg-yellow py-2 px-3 mt-4 rounded">
+                <h2 class="mb-0">
+                  Lorem, ipsum.
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

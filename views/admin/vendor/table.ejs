@@ -1,0 +1,47 @@
+<table id="example2" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>No.</th>
+      <th>Nama Vendor</th>  
+      <th>Barang</th>  
+      <th>Tanggal PO</th>  
+      <th>Nomor PO</th>  
+      <th>Dicatat Pada</th>  
+      <th>Status</th>  
+    </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < vendor.length; i++){ %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= vendor[i].nameVendor%></td>
+          <td>
+            <% vendor[i].item.forEach(item => { %>
+              <span class="badge badge-warning">
+                <%= item.name %> 
+              </span>
+            <% }) %>
+          </td>
+          <td><%= moment(vendor[i].tanggalPO).format("YYYY-MM-DD"); %></td>
+          <td><%= vendor[i].nomorPO %></td>
+          <td><%= moment(vendor[i].createdAt).format("YYYY-MM-DD HH:mm"); %></td>
+          <td>
+            <a href="/vendor/detail/<%= vendor[i]._id %>" class="btn btn-primary btn-sm">
+              <i class="fa fa-id-badge"></i>
+              Detail
+            </a>
+            <a href="/vendor/edit/<%= vendor[i]._id %>" class="btn btn-info btn-sm">
+              <i class="fas fa-pencil-alt"></i>
+              Ubah
+            </a>
+            <form style="display: inline-block;" action="/vendor/delete/<%= vendor[i]._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+                Hapus
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>

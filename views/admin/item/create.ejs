@@ -1,0 +1,131 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Item</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Item">Item</a></li>
+            <li class="breadcrumb-item active">Tambah</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form tambah Item</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="/item/create" method="POST" enctype="multipart/form-data">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Nama Barang</label>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Masukan nama Item" required>
+                </div>
+                <div class="form-group">
+                  <label for="tipeBarang">Tipe Barang</label>
+                  <input type="text" name="tipeBarang" class="form-control" id="tipeBarang" placeholder="Masukan tipe Item" required>
+                </div>
+                <div class="form-group">
+                  <label for="jenisBarang">Jenis Barang</label>
+                  <input type="text" name="jenisBarang" class="form-control" id="jenisBarang" placeholder="Masukan jenis Item" required>
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" name="quantity" class="form-control" id="quantity" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Masukan quantity Item" required>
+                </div>
+                <div class="form-group">
+                  <label for="minimStock">Minim Stock</label>
+                  <input type="number" name="minimStock" class="form-control" id="minimStock" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Masukan minim stock Item" required>
+                </div>
+                <div class="form-group">
+                  <label for="bagian">Bagian</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Mekanik" name="bagian" check>
+                    <label class="form-check-label">Mekanik</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Elektrik" name="bagian">
+                    <label class="form-check-label">Elektrik</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="General" name="bagian">
+                    <label class="form-check-label">General</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Forklif" name="bagian">
+                    <label class="form-check-label">Forklif</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="car">Pilih Rak</label>
+                  <select class="form-control" name="rak" id="rak">
+                    <option disabled>--- Pilih Rak ---</option>
+                    <% gudang.forEach((gudang) => {  %> 
+                    <optgroup label="<%= gudang.name %>" value="<%= gudang._id %>" name="gudang">
+                      <% gudang.rak.forEach((rak) => { %> 
+                      <option value="<%= rak._id %>"><%= rak.name %></option>
+                      <% }) %> 
+                    </optgroup>
+                    <% }) %> 
+                  </select> 
+                </div>
+                <div class="form-group">
+                  <label>Keterangan Barang</label>
+                  <textarea class="form-control" rows="3" placeholder="Keterangan/Deskripsi Barang" name="keterangan"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="image">Gambar</label>
+                  <input type="file" name="image" class="form-control" id="image" placeholder="Masukan gambar" required>
+                  <br >
+                  <img src="" id="perview"> 
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
+<script>
+  function readURL (input){
+    if(input.files && input.files[0]){
+      const reader = new FileReader();
+      reader.onload = function(e){
+        $('#perview').attr('src', e.target.result);
+        $('#perview').attr('width', '20%');
+        $('#perview').attr('height', '20%');
+      }
+      reader.readAsDataURL(input.files[0])
+    }
+  }
+  $('#image').change(function(){
+    readURL(this)
+  })
+</script>
