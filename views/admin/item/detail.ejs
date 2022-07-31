@@ -30,7 +30,7 @@
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none">Detail Project</h3>
               <div class="col-12">
-                <img src="http://localhost:3000/uploads/<%= item.thumbnail %>" class="product-image" alt="Product Image">
+                <img src="https://adminsparepark.herokuapp.com/uploads/<%= item.thumbnail %>" class="product-image" alt="Product Image">
               </div>
             </div>
             <div class="col-12 col-sm-6">
@@ -49,9 +49,9 @@
                   <b>Bagian:</b> <%= item.bagian %>
                 </h2>
               </div>
-              <div class="bg-yellow py-2 px-3 mt-4 rounded">
+              <div class="bg-green py-2 px-3 mt-4 rounded">
                 <h2 class="mb-0">
-                  <b>Gudang :</b> <%= namaGudang.name %><br><b>Rak :</b> <%= item.rak %> 
+                  <b>Gudang:</b> <%= item.name %>
                 </h2>
               </div>
               <h4 class="mt-3">Quantity</h4>

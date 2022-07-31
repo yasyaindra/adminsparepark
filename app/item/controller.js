@@ -10,7 +10,7 @@ var moment = require("moment");
 module.exports = {
   index: async (req, res) => {
     try {
-      const item = await Item.find();
+      const item = await Item.find().populate("rak");
 
       res.render("admin/item/view_item", {
         item,
@@ -35,7 +35,6 @@ module.exports = {
       res.redirect("/item");
     }
   },
-
   actionCreate: async (req, res) => {
     try {
       const {
@@ -126,14 +125,17 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const item = await Item.findOne({ _id: id });
-      const gudang = await Rak.find({ name: item.rak });
-      const idGudang = gudang[0].gudang;
-      const namaGudang = await Gudang.findOne({ _id: idGudang });
+      const item = await Item.findOne({ _id: id }).populate([
+        {
+          path: "rak",
+          populate: [{ path: "gudang" }],
+        },
+      ]);
+
+      console.log(item);
 
       res.render("admin/item/detail", {
         item,
-        namaGudang,
         title: "Detail Item",
       });
     } catch (error) {
@@ -144,21 +146,24 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const item = await Item.findOne({ _id: id });
-      const gudang = await Gudang.find();
-      function createRak(name, id, rak) {
-        return {
-          name,
-          id,
-          rak,
-        };
+      const item = await Item.findOne({ _id: id }).populate("rak");
+      const gudang = await Gudang.find().populate("rak");
+
+      function selected(rItem, rGudang) {
+        rGudang.forEach((gudang) => {
+          gudang.rak.forEach((rak) => {
+            if (rak.name === rItem.rak.name) {
+              console.log("selected", `${rItem.rak.name} ${rak.name}`);
+            } else {
+              console.log("unselected");
+            }
+          });
+        });
       }
 
-      const gudangs = gudang.map((item) => {
-        return createRak(item.name, item._id, item.rak);
-      });
+      selected(item, gudang);
 
-      res.render("admin/item/edit", { title: "Ubah Item", item, gudangs });
+      res.render("admin/item/edit", { title: "Ubah Item", item, gudang });
     } catch (error) {
       res.redirect("/item");
     }

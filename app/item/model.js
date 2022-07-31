@@ -28,7 +28,8 @@ let itemSchema = mongoose.Schema(
       required: true,
     },
     rak: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Rak",
     },
     thumbnail: {
       type: String,

@@ -70,18 +70,18 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <label for="car">Pilih Rak</label>
-                    <select class="form-control" name="rak" id="rak">
-                      <option disabled>--- Pilih Rak ---</option>
-                      <% gudangs.forEach((gudang) => {  %> 
-                      <optgroup label="<%= gudang.name %>" value="<%= gudang._id %>">
-                        <% gudang.rak.forEach((rak) => { %> 
-                        <option value="<%= rak %>" <% if( rak === item.rak) { %>selected<% } %>><%= rak %></option>
-                        <% }) %> 
-                      </optgroup>
+                  <label for="car">Pilih Rak</label>
+                  <select class="form-control" name="rak" id="rak">
+                    <option disabled>--- Pilih Rak ---</option>
+                    <% gudang.forEach((gudang) => {  %> 
+                    <optgroup label="<%= gudang.name %>" value="<%= gudang._id %>">
+                      <% gudang.rak.forEach((rak) => { %> 
+                      <option value="<%= rak._id %>" <% if( rak._id.toString() === item.rak._id.toString()) { %>selected<% } %>><%= rak.name %></option>
                       <% }) %> 
-                    </select> 
-                  </div>
+                    </optgroup>
+                    <% }) %> 
+                  </select> 
+                </div>
                 <div class="form-group">
                   <label>Keterangan Barang</label>
                   <textarea class="form-control" rows="3" placeholder="Keterangan/Deskripsi Barang" name="keterangan"><%= item.keterangan %></textarea>
@@ -91,7 +91,7 @@
                   <input type="file" name="image" class="form-control" id="image" placeholder="Masukan gambar">
                   <br>
                   <img id="perview" alt="test"
-                    src="http://localhost:3000/uploads/<%= item.thumbnail %>">
+                    src="https://adminsparepark.herokuapp.com/uploads/<%= item.thumbnail %>">
                 </div>
               </div>
               <div class="card-footer">
