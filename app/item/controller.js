@@ -187,7 +187,7 @@ module.exports = {
           },
           {
             $inc: {
-              quantity: -quantityDiambil,
+              quantity: -parseInt(quantityDiambil),
             },
           },
           {
