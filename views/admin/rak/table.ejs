@@ -2,6 +2,7 @@
     <thead>
     <tr>
       <th>No.</th>
+      <th>Kode Rak</th>
       <th>Nama Rak</th>
       <th>Nama Gudang</th>
     </tr>
@@ -10,6 +11,7 @@
       <% for(let i = 0; i < rak.length; i++){ %>
         <tr>
           <td><%= i + 1 %></td>
+          <td><%= rak[i]?.kodeRak %></td>
           <td><%= rak[i].name %></td>
           <td><%= rak[i].gudang?.name %></td>
           <td>

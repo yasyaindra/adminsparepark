@@ -6,6 +6,10 @@ let rakSchema = mongoose.Schema(
       type: String,
       require: [true, "Nama rak harus diiisi"],
     },
+    kodeRak: {
+      type: Number,
+      require: [true, "Nama kode rak harus diiisi"],
+    },
     gudang: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Gudang",

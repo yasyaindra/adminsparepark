@@ -26,7 +26,11 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     const { name, gudang } = req.body;
-    const newRak = new Rak({ name, gudang });
+    const newRak = new Rak({
+      name,
+      gudang,
+      kodeRak: Math.floor(1000 + Math.random() * 9000),
+    });
 
     try {
       const savedRak = await newRak.save();
