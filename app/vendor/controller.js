@@ -61,9 +61,6 @@ module.exports = {
       const vendor = await Vendor.findOne({ _id: id }).populate("item");
       const item = await Item.find();
 
-      console.log("ini item", item);
-      console.log("ini item dari vendor", vendor.item);
-
       res.render("admin/vendor/edit", {
         title: "Ubah Edit",
         vendor,

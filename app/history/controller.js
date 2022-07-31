@@ -7,14 +7,17 @@ const { findGudang } = require("../../utils/utils");
 module.exports = {
   index: async (req, res) => {
     try {
-      const history = await History.find();
-      const gudang = await Gudang.find();
+      const history = await History.find().populate([
+        {
+          path: "rak",
+          populate: [{ path: "gudang" }],
+        },
+      ]);
 
-      const namaGudang = findGudang(history, gudang);
+      console.log("ini history: ", history);
 
       res.render("admin/history/view_history", {
         history,
-        namaGudang,
         moment,
         title: "Halaman metode pembayaran",
       });

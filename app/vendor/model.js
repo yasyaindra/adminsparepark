@@ -22,6 +22,9 @@ let vendorSchema = mongoose.Schema(
         ref: "Item",
       },
     ],
+    keterangan: {
+      type: String,
+    },
     thumbnail: {
       type: String,
     },

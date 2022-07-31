@@ -4,8 +4,8 @@
         <th>No.</th>
         <th>Nama Item</th>
         <th>Gudang</th>
-        <th>Rak</th>
-        <th>Nama Pengambil</th>
+        <th>Nama Rak</th>
+        <th>Nomor Rak</th>
         <th>Quantity</th>
         <th>Tanggal Masuk</th>
         <th>Status</th>
@@ -16,11 +16,12 @@
         <tr>
           <td><%= i + 1 %></td>
           <td><%= history[i].kodeBarang%> - <%= history[i].name %></td>
-          <td><%= namaGudang[i] %></td>
-          <td><%= history[i].rak %></td>
-          <td><%= history[i].namaPengambil %></td>
+          <td><%= history[i].rak.gudang.name %></td>
+          <td><%= history[i].rak.kodeRak %></td>
+          <td><%= history[i].rak.name %></td>
           <td><%= history[i].quantityDiambil %></td>
           <td><%= moment(history[i].createdAt).format("YYYY-MM-DD HH:mm"); %></td>
+          <td><%  %></td>
           <td><% if(!history[i].namaPengambil) { %><span class="badge badge-success">Ditambah</span><% } else { %><span class="badge badge-danger">Diambil</span><% } %></td>
         </tr>
       <% } %>

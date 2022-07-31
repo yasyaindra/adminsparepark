@@ -5,6 +5,7 @@
       <th>Nama Barang</th>
       <th>Tipe Barang</th>
       <th>Jenis Barang</th>
+      <th>Kode Rak</th>
       <th>Nama Rak</th>
       <th>Quantity</th>
       <th>Minim Stock</th>
@@ -19,7 +20,8 @@
           <td><%= item[i].kodeBarang%> - <%= item[i].name %></td>
           <td><%= item[i].tipeBarang %></td>
           <td><%= item[i].jenisBarang %></td>
-          <td><%= item[i].rak.name %></td>
+          <td><%= item[i].rak.kodeRak %></td>
+          <td><%= item[i].rak?.name %></td>
           <td style="color:<% if( item[i].quantity < item[i].minimStock) { %>red<% } else { %>green<% } %>;font-weight:bold"><%= item[i].quantity %></td>
           <td><%= item[i].minimStock %></td>
           <td><%= moment(item[i].createdAt).format("YYYY-MM-DD HH:mm"); %></td>

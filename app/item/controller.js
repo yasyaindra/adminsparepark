@@ -25,8 +25,6 @@ module.exports = {
     try {
       const gudang = await Gudang.find().populate("rak");
 
-      console.log(gudang);
-
       res.render("admin/item/create", {
         gudang,
         title: "Halaman tambah item",
@@ -58,6 +56,8 @@ module.exports = {
         rak,
         quantityDiambil: quantity,
         kodeBarang,
+        namaPengambil: "USER",
+        status: "DITAMBAH",
       });
 
       await history.save();
@@ -132,8 +132,6 @@ module.exports = {
         },
       ]);
 
-      console.log(item);
-
       res.render("admin/item/detail", {
         item,
         title: "Detail Item",
@@ -149,18 +147,6 @@ module.exports = {
       const item = await Item.findOne({ _id: id }).populate("rak");
       const gudang = await Gudang.find().populate("rak");
 
-      function selected(rItem, rGudang) {
-        rGudang.forEach((gudang) => {
-          gudang.rak.forEach((rak) => {
-            if (rak.name === rItem.rak.name) {
-              console.log("selected", `${rItem.rak.name} ${rak.name}`);
-            } else {
-              console.log("unselected");
-            }
-          });
-        });
-      }
-
       selected(item, gudang);
 
       res.render("admin/item/edit", { title: "Ubah Item", item, gudang });
@@ -173,7 +159,8 @@ module.exports = {
       const { kodeBarang } = req.query;
 
       if (kodeBarang) {
-        const item = await Item.find({ kodeBarang });
+        const item = await Item.find({ kodeBarang }).populate("rak");
+
         res.render("admin/item/transaction", { title: "Transaksi", item });
       } else {
         res.render("admin/item/search", { title: "Cari Search" });
@@ -185,9 +172,12 @@ module.exports = {
   actionHistory: async (req, res) => {
     try {
       const { id } = req.params;
-      const { namaPengambil, quantityDiambil } = req.body;
+      const { quantityDiambil } = req.body;
+
+      console.log(req.body);
 
       const history = await History(req.body);
+
       await history.save();
 
       try {

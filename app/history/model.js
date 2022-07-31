@@ -11,8 +11,8 @@ let historySchema = mongoose.Schema(
       require: [true, "nama barang harus diisi"],
     },
     rak: {
-      type: String,
-      require: [true, "rak harus diisi"],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Rak",
     },
     namaPengambil: {
       type: String,
@@ -21,6 +21,10 @@ let historySchema = mongoose.Schema(
     quantityDiambil: {
       type: Number,
       require: [true, "quantity harus diisi"],
+    },
+    status: {
+      type: String,
+      require: [true, "status harus diisi"],
     },
   },
   { timestamps: true }
