@@ -18,6 +18,10 @@ let historySchema = mongoose.Schema(
       type: String,
       require: [true, "pengambil harus diisi"],
     },
+    tipeBarang: {
+      type: String,
+      require: [true, "tipe barang harus diisi"],
+    },
     quantityDiambil: {
       type: Number,
       require: [true, "quantity harus diisi"],

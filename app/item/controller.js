@@ -56,6 +56,7 @@ module.exports = {
         rak,
         quantityDiambil: quantity,
         kodeBarang,
+        tipeBarang,
         namaPengambil: "USER",
         status: "DITAMBAH",
       });
@@ -172,13 +173,31 @@ module.exports = {
   actionHistory: async (req, res) => {
     try {
       const { id } = req.params;
-      const { quantityDiambil } = req.body;
+
+      const {
+        name,
+        rak,
+        namaPengambil,
+        quantityDiambil,
+        kodeBarang,
+        tipeBarang,
+      } = req.body;
 
       console.log(req.body);
 
-      const history = await History(req.body);
+      const history = await History({
+        name,
+        rak,
+        kodeBarang,
+        quantityDiambil,
+        namaPengambil,
+        tipeBarang,
+        status: "DIAMBIL",
+      });
 
-      await history.save();
+      history.save();
+
+      console.log("ini history", history);
 
       try {
         const db = await Item.findOneAndUpdate(

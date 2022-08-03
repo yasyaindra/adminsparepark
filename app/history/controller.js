@@ -14,8 +14,6 @@ module.exports = {
         },
       ]);
 
-      console.log("ini history: ", history);
-
       res.render("admin/history/view_history", {
         history,
         moment,

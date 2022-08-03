@@ -3,6 +3,7 @@
       <tr>
         <th>No.</th>
         <th>Nama Item</th>
+        <th>Tipe Item</th>
         <th>Gudang</th>
         <th>Nama Rak</th>
         <th>Nomor Rak</th>
@@ -15,14 +16,14 @@
       <% for(let i = 0; i < history.length; i++){ %>
         <tr>
           <td><%= i + 1 %></td>
-          <td><%= history[i].kodeBarang%> - <%= history[i].name %></td>
+          <td><%= history[i].kodeBarang %> - <%= history[i].name %></td>
+          <td><%= history[i].tipeBarang %></td>
           <td><%= history[i].rak.gudang.name %></td>
           <td><%= history[i].rak.kodeRak %></td>
           <td><%= history[i].rak.name %></td>
           <td><%= history[i].quantityDiambil %></td>
           <td><%= moment(history[i].createdAt).format("YYYY-MM-DD HH:mm"); %></td>
-          <td><%  %></td>
-          <td><% if(!history[i].namaPengambil) { %><span class="badge badge-success">Ditambah</span><% } else { %><span class="badge badge-danger">Diambil</span><% } %></td>
+          <td><% if(history[i].status == "DITAMBAH") { %><span class="badge badge-success">DITAMBAH</span><% } else { %><span class="badge badge-danger">DIAMBIL</span><% } %></td>
         </tr>
       <% } %>
     </tbody>
