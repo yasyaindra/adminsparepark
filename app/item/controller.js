@@ -5,6 +5,7 @@ const History = require("../history/model");
 const path = require("path");
 const fs = require("fs");
 const config = require("../../config");
+const { editAmount } = require("../../utils/utils.js");
 var moment = require("moment");
 
 module.exports = {
@@ -148,8 +149,6 @@ module.exports = {
       const item = await Item.findOne({ _id: id }).populate("rak");
       const gudang = await Gudang.find().populate("rak");
 
-      selected(item, gudang);
-
       res.render("admin/item/edit", { title: "Ubah Item", item, gudang });
     } catch (error) {
       res.redirect("/item");
@@ -235,6 +234,23 @@ module.exports = {
         rak,
         keterangan,
       } = req.body;
+      const itemDB = await Item.findOne({ _id: id }).populate("rak");
+
+      let updatedAmount = editAmount(itemDB.quantity, quantity);
+
+      const history = await History({
+        name,
+        rak,
+        quantityDiambil: updatedAmount.interval,
+        kodeBarang: itemDB.kodeBarang,
+        tipeBarang,
+        namaPengambil: "USER",
+        status: updatedAmount.status,
+      });
+
+      await history.save();
+
+      // console.log({ amount: quantity, changing: itemDB.quantity });
 
       if (req.file) {
         let tmp_path = req.file.path;

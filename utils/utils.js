@@ -24,4 +24,21 @@ module.exports = {
 
     return data;
   },
+  editAmount: (amount, changing) => {
+    if (changing > amount) {
+      return {
+        preAmount: amount,
+        currentAmount: changing,
+        interval: changing - amount,
+        status: "DITAMBAH",
+      };
+    } else if (changing < amount) {
+      return {
+        preAmount: amount,
+        currentAmount: changing,
+        interval: amount - changing,
+        status: "DIAMBIL",
+      };
+    }
+  },
 };
