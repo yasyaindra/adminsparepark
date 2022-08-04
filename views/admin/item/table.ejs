@@ -20,7 +20,7 @@
           <td><%= item[i].kodeBarang%> - <%= item[i].name %></td>
           <td><%= item[i].tipeBarang %></td>
           <td><%= item[i].jenisBarang %></td>
-          <td><%= item[i].rak.kodeRak %></td>
+          <td><%= item[i].rak?.kodeRak %></td>
           <td><%= item[i].rak?.name %></td>
           <td style="color:<% if( item[i].quantity < item[i].minimStock) { %>red<% } else { %>green<% } %>;font-weight:bold"><%= item[i].quantity %></td>
           <td><%= item[i].minimStock %></td>
